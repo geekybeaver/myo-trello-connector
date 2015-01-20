@@ -1,0 +1,104 @@
+scriptId = 'ca.geekybeaver.scripts.trello'
+scriptDetailsUrl = ''
+scriptTitle = 'Trello Connector'
+
+-- Effects
+
+function forward()
+    myo.keyboard("j", "press")
+end
+
+function backward()
+    myo.keyboard("k", "press")
+end
+
+function openedit()
+    myo.keyboard("e", "press")
+end
+
+function closeedit()
+    myo.keyboard("escape", "press")
+end
+
+-- Helpers
+
+function conditionallySwapWave(pose)
+    if myo.getArm() == "left" then
+        if pose == "waveIn" then
+            pose = "waveOut"
+        elseif pose == "waveOut" then
+            pose = "waveIn"
+        end
+    end
+    return pose
+end
+
+-- Triggers
+
+function onPoseEdge(pose, edge)
+
+    -- Dealing with waveIn and waveOut
+    if pose == "waveIn" or pose == "waveOut" then
+        if edge == "on" then
+            
+            -- Deal with direction and arm
+            if pose == "waveIn" then
+                backward()
+            else
+                forward()
+            end
+
+            -- Extend unlock and notify user
+            myo.unlock("timed")
+            myo.notifyUserAction()
+        end 
+    end
+    
+    -- Dealing with fingersSpread
+    if pose == "fingersSpread" then
+        if edge == "on" then
+            openedit()
+
+            -- Extend unlock and notify user
+            myo.unlock("timed")
+            myo.notifyUserAction()
+        end
+    end    
+    
+    -- Dealing with fist
+    if pose == "fist" then
+        if edge == "on" then
+            closeedit()
+
+            -- Extend unlock and notify user
+            myo.unlock("timed")
+            myo.notifyUserAction()
+        end
+    end
+    
+    
+end
+
+function onForegroundWindowChange(app, title)
+    if platform == "MacOS" then
+        if (app == "com.apple.Safari" or
+                app == "com.google.Chrome" or
+                app == "org.mozilla.firefox") and
+                (string.match(title, "| Trello")) then
+            return true
+        end
+    elseif platform == "Windows" then
+        if (app == "Safari.exe" or
+                app == "chrome.exe" or
+                app == "firefox.exe" or
+                app == "iexplore.exe") and
+                (title == "Microsoft Silverlight" or
+                string.match(title, "| Trello")) then
+            return true
+        end
+    end
+end
+
+function activeAppName()
+    return "Trello"
+end
