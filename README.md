@@ -11,11 +11,11 @@ If your looking to install this connector, please go to the MYO Market here [htt
 
 More gestures will be added soon.
 
-- [Double Tap](#doubletap)
-- [Wave Left](#waveleft)
-- [Wave Right](#waveright)
-- [Spread Fingers](#spreadfingers)
-- [Make Fist](#makefist)
+- [Double Tap](#double-tap)
+- [Wave Left](#wave-left)
+- [Wave Right](#wave-right)
+- [Spread Fingers](#spread-fingers)
+- [Make Fist](#make-fist)
 
 ### Double Tap
 
